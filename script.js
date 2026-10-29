@@ -30,13 +30,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!response.ok) {
       throw new Error("City not found");
     }
-    weatherInfo.classList.remove("hidden");
-    errorMessage.classList.add("hidden");
+
     const data = await response.json();
     return data;
   }
   function displayWeatherData(data) {
     console.log("data arriving:", data);
+    const { name, main, weather, sys } = data;
+    cityNameDisplay.textContent = `${name}, ${sys.country}`;
+    temperatureDisplay.textContent = `Temperature: ${main.temp}`;
+    descriptionDisplay.textContent = `Weather: ${weather[0].description}`;
+
+    cityInput.value = "";
+    weatherInfo.classList.remove("hidden");
+    errorMessage.classList.add("hidden");
   }
   function showError() {
     weatherInfo.classList.add("hidden");

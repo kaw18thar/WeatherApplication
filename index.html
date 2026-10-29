@@ -11,11 +11,14 @@
       <h1>Weather App</h1>
       <input id="city-input" placeholder="Enter city to display weather" />
       <button id="display-w-btn">show weather</button>
-      <div class="results">
+      <div id="results" class="hidden">
+        <h2 id="city"></h2>
         <p id="display-description"></p>
         <h3 id="display-temp"></h3>
         <h3 id="display-rain"></h3>
       </div>
+      <div id="error-message" class="hidden">error fetching results..</div>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>

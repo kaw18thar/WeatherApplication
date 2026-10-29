@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   getWeatherBtn.addEventListener("click", async () => {
     const city = cityInput.value.trim();
-    console.log(city);
+
     if (!city) return;
     try {
       const weatherData = await fetchWeatherData(city);
@@ -23,11 +23,21 @@ document.addEventListener("DOMContentLoaded", () => {
   async function fetchWeatherData(city) {
     //gets the data
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`;
-    const response = fetch(url);
+    const response = await fetch(url);
     console.log(typeof response);
     console.log("RESPONSE", response);
+
+    if (!response.ok) {
+      throw new Error("City not found");
+    }
+    weatherInfo.classList.remove("hidden");
+    errorMessage.classList.add("hidden");
+    const data = await response.json();
+    return data;
   }
-  function displayWeatherData(weatherData) {}
+  function displayWeatherData(data) {
+    console.log("data arriving:", data);
+  }
   function showError() {
     weatherInfo.classList.add("hidden");
     errorMessage.classList.remove("hidden");
